@@ -69,41 +69,41 @@ class OrderViewSet(viewsets.ModelViewSet):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
 
-    def create(self, request):
-        cart_id = request.data['cart_id']
-        user_id = request.data['user_id']
-        address = request.data['address']
-        ship_days = request.data['ship_days']
-        method = request.data['payment_method']
-        today = datetime.now()
-        ship_date = datetime(today.year, today.month,
-                             (today.day + int(ship_days)), 0, 0, 0, 0)
-        try:
-            cart = Cart.objects.get(id=cart_id)
-            order = Order.objects.create(
-                user_id=User.objects.get(id=user_id), address=address, ship_date=ship_date)
-            order.save()
-            order.items.set(cart.items.all())
-            cost = 0
-            for i in cart.items.all():
-                cost += i.price
+    # def create(self, request):
+    #     cart_id = request.data['cart_id']
+    #     user_id = request.data['user_id']
+    #     address = request.data['address']
+    #     ship_days = request.data['ship_days']
+    #     method = request.data['payment_method']
+    #     today = datetime.now()
+    #     ship_date = datetime(today.year, today.month,
+    #                          (today.day + int(ship_days)), 0, 0, 0, 0)
+    #     try:
+    #         cart = Cart.objects.get(id=cart_id)
+    #         order = Order.objects.create(
+    #             user_id=User.objects.get(id=user_id), address=address, ship_date=ship_date)
+    #         order.save()
+    #         order.items.set(cart.items.all())
+    #         cost = 0
+    #         for i in cart.items.all():
+    #             cost += i.price
 
-            payment = OrderPayment.objects.create(
-                order_id=order, amount=cost, status=False, method=method)
-            payment.save()
+    #         payment = OrderPayment.objects.create(
+    #             order_id=order, amount=cost, status=False, method=method)
+    #         payment.save()
 
-            return Response(OrderPaymentSerializer(payment).data, status=status.HTTP_201_CREATED)
-        except (Cart.DoesNotExist, User.DoesNotExist):
-            return Response({'Error': 'User does not exist'}, status=status.HTTP_400_BAD_REQUEST)
+    #         return Response(OrderPaymentSerializer(payment).data, status=status.HTTP_201_CREATED)
+    #     except (Cart.DoesNotExist, User.DoesNotExist):
+    #         return Response({'Error': 'User does not exist'}, status=status.HTTP_400_BAD_REQUEST)
 
-    def retrieve(self, request,  *args, **kwargs):
-        queryset = Order.objects.all()
-        try:
-            queryset.objects.all().select_related('')
-            orders = queryset.filter(user_id=kwargs['pk'])
-            return Response(OrderSerializer(orders, many=True).data, status=status.HTTP_200_OK)
-        except Order.DoesNotExist:
-            return Response({'Error': 'Order does not exist'})
+    # def retrieve(self, request,  *args, **kwargs):
+    #     queryset = Order.objects.all()
+    #     try:
+    #         queryset.objects.all().select_related('')
+    #         orders = queryset.filter(user_id=kwargs['pk'])
+    #         return Response(OrderSerializer(orders, many=True).data, status=status.HTTP_200_OK)
+    #     except Order.DoesNotExist:
+    #         return Response({'Error': 'Order does not exist'})
 
 
 class OrderPaymentViewSet(viewsets.ModelViewSet):

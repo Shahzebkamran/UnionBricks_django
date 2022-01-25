@@ -7,8 +7,8 @@ from api.models import Architect, Cart, Design, Item, Meeting, Order, OrderPayme
 
 
 # Register your models here.
-admin.site.site_title = "Unicon-Admin"
-admin.site.site_header = "Unicon Admin Panel"
+admin.site.site_title = "Union-Admin"
+admin.site.site_header = "Union Admin Panel"
 admin.site.index_title = "Welcome to admin panel"
 
 

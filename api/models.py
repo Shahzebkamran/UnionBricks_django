@@ -76,7 +76,7 @@ class Item(models.Model):
     type = models.CharField(max_length=20)
     price = models.IntegerField()
     stock = models.IntegerField()
-
+    item_picture = models.ImageField(upload_to='uploads',)
     def __str__(self):
         return self.name
 
@@ -84,7 +84,6 @@ class Item(models.Model):
 class Architect(User):
     experience = models.TextField()
     education = models.CharField(max_length=30)
-
     def __str__(self):
         return self.email
 
@@ -133,7 +132,7 @@ class Project(models.Model):
     cost = models.IntegerField()
     start_date = models.DateTimeField(auto_now_add=True)
     comp_date = models.DateTimeField(null=True, blank=True)
-
+    project_picture = models.ImageField(upload_to='uploads',)
     def __str__(self):
         return self.title
 

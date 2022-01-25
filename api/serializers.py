@@ -6,7 +6,7 @@ from rest_framework.authtoken.views import Token
 class ItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = Item
-        fields = ['id', 'name', 'description', 'type', 'price', 'stock']
+        fields = ['id', 'name', 'description', 'type', 'price', 'stock','item_picture']
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -56,7 +56,7 @@ class ProjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = Project
         fields = ['id', 'description', 'title', 'client_id',
-                  'client_name', 'percentage', 'cost', 'start_date', 'comp_date']
+                  'client_name', 'percentage', 'cost', 'start_date', 'comp_date','project_picture']
 
 
 class DesignSerializer(serializers.ModelSerializer):
