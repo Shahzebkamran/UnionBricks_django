@@ -3,7 +3,7 @@ from rest_framework.decorators import action
 from rest_framework.exceptions import NotFound
 from rest_framework.fields import DateTimeField
 from rest_framework.response import Response
-from django.http.response import ResponseHeaders
+from django.http import HttpResponse
 from rest_framework.generics import get_object_or_404
 from rest_framework.views import APIView
 from .models import Architect, Cart, Design, DesignPayment, Item, Meeting, MeetingPayment, Order, OrderPayment, Project, User
